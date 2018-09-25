@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { View, StatusBar } from 'react-native';
@@ -63,10 +64,13 @@ const MainNavigator = createStackNavigator({
   },
 });
 
+const middleware = applyMiddleware(thunk);
+const store = createStore(reducer);
+
 export default class App extends Component {
   render() {
     return (
-      <Provider store={createStore(reducer)}>
+      <Provider store={store}>
         <View style={{flex: 1}}>
           <UdaciStatusBar backgroundColor={black} barStyle="light-content" />
           <MainNavigator />
