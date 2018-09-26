@@ -7,16 +7,13 @@ import { orange, grey } from '../utils/colors';
 import { addDeck } from '../actions/decks';
 import { saveDeckTitle } from '../utils/api';
 
-
-
 const mapDispatchToProps = {
-  addDeckFn: addDeck, 
+  addDeckFn: addDeck
 };
 
 class NewDeck extends Component {
-
   state = {
-    text: '',
+    text: ''
   };
 
   submit = () => {
@@ -24,38 +21,37 @@ class NewDeck extends Component {
     const { text } = this.state;
     const deck = {
       title: text,
-      questions: [],
+      questions: []
     };
 
     saveDeckTitle(deck)
       .then(addDeckFn)
       .then(this.reset)
       .then(() => {
-        navigation.navigate(
-          'DeckDetail',
-          { deckId: deck.title }
-        );
+        navigation.navigate('DeckDetail', { deckId: deck.title });
       });
   };
 
-  onChangeText = (text) => {
+  onChangeText = text => {
     this.setState({
-      text,
+      text
     });
-  }
+  };
 
   reset = () => {
     this.setState({
-      text: '',
+      text: ''
     });
-  }
+  };
 
   render() {
     const { text } = this.state;
 
     return (
       <View style={styles.container}>
-        <Text style={styles.questionLabel}>What is the title of your new deck?</Text>
+        <Text style={styles.questionLabel}>
+          What is the title of your new deck?
+        </Text>
         <TextInput
           style={styles.inputText}
           editable={true}
@@ -78,8 +74,8 @@ class NewDeck extends Component {
 NewDeck.propTypes = {
   addDeckFn: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
+    navigate: PropTypes.func.isRequired
+  }).isRequired
 };
 
 const styles = StyleSheet.create({
@@ -88,14 +84,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: 30,
+    paddingTop: 30
   },
   questionLabel: {
     fontSize: 30,
     color: grey,
     width: '70%',
     textAlign: 'center',
-    marginBottom: 30,
+    marginBottom: 30
   },
   inputText: {
     width: '80%',
@@ -103,8 +99,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingLeft: 10,
     paddingBottom: 5,
-    marginBottom: 30,
-  },
+    marginBottom: 30
+  }
 });
 
 export default connect(

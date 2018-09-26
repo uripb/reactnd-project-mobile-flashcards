@@ -1,15 +1,20 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, Text, TouchableOpacity, Animated } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Animated
+} from 'react-native';
 import { grey, white, orangeLight } from '../utils/colors';
 
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
 
 class DeckRow extends PureComponent {
-
   state = {
-    bgColor: new Animated.Value(0),
-  }
+    bgColor: new Animated.Value(0)
+  };
 
   handleOnPress = () => {
     const { title, onClick } = this.props;
@@ -17,17 +22,17 @@ class DeckRow extends PureComponent {
 
     Animated.sequence([
       Animated.timing(bgColor, {
-          duration: 200,
-          toValue: 1,
+        duration: 200,
+        toValue: 1
       }),
       Animated.timing(bgColor, {
-          duration: 200,
-          toValue: 0,
-      }),
+        duration: 200,
+        toValue: 0
+      })
     ]).start(() => {
       onClick(title);
     });
-  }
+  };
 
   render() {
     const { title, num } = this.props;
@@ -35,12 +40,12 @@ class DeckRow extends PureComponent {
 
     const backgroundColor = bgColor.interpolate({
       inputRange: [0, 1],
-      outputRange: [white, orangeLight],
+      outputRange: [white, orangeLight]
     });
 
     return (
       <AnimatedTouchable
-        style={[styles.row, {backgroundColor}]}
+        style={[styles.row, { backgroundColor }]}
         onPress={this.handleOnPress}
       >
         <View>
@@ -55,13 +60,13 @@ class DeckRow extends PureComponent {
 DeckRow.defaultProps = {
   title: '-',
   num: 0,
-  onClick: () => null,
+  onClick: () => null
 };
 
 DeckRow.propTypes = {
   title: PropTypes.string,
-  num: PropTypes.number, 
-  onClick: PropTypes.func,
+  num: PropTypes.number,
+  onClick: PropTypes.func
 };
 
 const styles = StyleSheet.create({
@@ -71,15 +76,15 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     paddingLeft: 20,
     paddingRight: 20,
-    width: "100%",
-    backgroundColor: "transparent"
+    width: '100%',
+    backgroundColor: 'transparent'
   },
   title: {
-    fontSize: 20,
+    fontSize: 20
   },
   cards: {
     fontSize: 17,
-    color: grey,
+    color: grey
   }
 });
 

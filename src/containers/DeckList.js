@@ -7,56 +7,47 @@ import DeckRow from '../components/DeckRow';
 import { receiveDecks } from '../actions/decks';
 import { getDecks } from '../utils/api';
 
-const mapStateToProps = (decks) => ({
+const mapStateToProps = decks => ({
   decks: Object.values(decks).map(deck => ({
     title: deck.title,
-    totalCards: deck.questions.length || 0,
-  })),
+    totalCards: deck.questions.length || 0
+  }))
 });
 
 const mapDispatchToProps = {
-  getDecksFn: receiveDecks, 
+  getDecksFn: receiveDecks
 };
 
 class DeckList extends Component {
   state = {
-    ready: false,
+    ready: false
   };
 
   componentDidMount() {
     const { getDecksFn } = this.props;
     getDecks()
       .then(getDecksFn)
-      .then(() => this.setState(() => ({ready: true})));
-  };
+      .then(() => this.setState(() => ({ ready: true })));
+  }
 
-  handleClickRow = (id) => {
+  handleClickRow = id => {
     const { navigation } = this.props;
-    navigation.navigate(
-      'DeckDetail',
-      { deckId: id }
-    );
+    navigation.navigate('DeckDetail', { deckId: id });
   };
 
-  keyExtractor = (item) => item.title;
+  keyExtractor = item => item.title;
 
-  renderLoading = () => (
-    <AppLoading />
-  );
+  renderLoading = () => <AppLoading />;
 
-  renderItem = ({item}) => (
-    <DeckRow 
+  renderItem = ({ item }) => (
+    <DeckRow
       title={item.title}
       num={item.totalCards}
       onClick={this.handleClickRow}
     />
   );
 
-  renderSeparator = () => (
-    <View
-        style={styles.separator}
-      />
-  );
+  renderSeparator = () => <View style={styles.separator} />;
 
   render() {
     const { decks } = this.props;
@@ -80,29 +71,31 @@ class DeckList extends Component {
 }
 
 DeckList.propTypes = {
-  decks: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    totalCards: PropTypes.number.isRequired,
-  })).isRequired,
+  decks: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      totalCards: PropTypes.number.isRequired
+    })
+  ).isRequired,
   getDecksFn: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
+    navigate: PropTypes.func.isRequired
+  }).isRequired
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'stretch',
+    alignItems: 'stretch'
   },
   separator: {
     height: 1,
-    width: "92%",
-    backgroundColor: "#CED0CE",
-    marginLeft: "4%",
-    marginRight: "4%",
-  },
+    width: '92%',
+    backgroundColor: '#CED0CE',
+    marginLeft: '4%',
+    marginRight: '4%'
+  }
 });
 
 export default connect(

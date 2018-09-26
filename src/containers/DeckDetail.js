@@ -10,37 +10,30 @@ const mapStateToProps = (decks, { navigation }) => {
   const { deckId } = navigation.state.params;
   return {
     deckId,
-    deck: decks[deckId],
+    deck: decks[deckId]
   };
 };
 
 class DeckDetail extends PureComponent {
-
   static navigationOptions = ({ navigation }) => {
     const { deckId } = navigation.state.params;
     return {
       title: deckId
     };
-  }
+  };
 
   handleStartQuiz = () => {
     const { navigation, deckId } = this.props;
-    navigation.navigate(
-      'Quiz',
-      {
-        deckId,
-      }
-    );
+    navigation.navigate('Quiz', {
+      deckId
+    });
   };
 
   handleAddCard = () => {
     const { navigation, deckId } = this.props;
-    navigation.navigate(
-      'AddCard',
-      {
-        deckId,
-      }
-    );
+    navigation.navigate('AddCard', {
+      deckId
+    });
   };
 
   render() {
@@ -62,7 +55,6 @@ class DeckDetail extends PureComponent {
         </View>
       </View>
     );
-
   }
 }
 
@@ -70,14 +62,16 @@ DeckDetail.propTypes = {
   deckId: PropTypes.string.isRequired,
   deck: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    questions: PropTypes.arrayOf(PropTypes.shape({
-      question: PropTypes.string,
-      anwser: PropTypes.string,
-    })).isRequired,
+    questions: PropTypes.arrayOf(
+      PropTypes.shape({
+        question: PropTypes.string,
+        anwser: PropTypes.string
+      })
+    ).isRequired
   }).isRequired,
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
+    navigate: PropTypes.func.isRequired
+  }).isRequired
 };
 
 const styles = StyleSheet.create({
@@ -86,28 +80,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: 30,
+    paddingTop: 30
   },
   title: {
     fontSize: 28,
     color: black,
     width: '70%',
     textAlign: 'center',
-    marginBottom: 5,
+    marginBottom: 5
   },
   cards: {
     fontSize: 20,
     color: grey,
     width: '70%',
     textAlign: 'center',
-    marginBottom: 30,
+    marginBottom: 30
   },
   btn: {
     marginTop: 5,
-    marginBottom: 5,
-  },
+    marginBottom: 5
+  }
 });
 
-export default connect(
-  mapStateToProps
-)(DeckDetail);
+export default connect(mapStateToProps)(DeckDetail);

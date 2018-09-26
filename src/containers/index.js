@@ -4,10 +4,4 @@ import NewDeck from './NewDeck';
 import DeckDetail from './DeckDetail';
 import Quiz from './Quiz';
 
-export {
-  AddCard,
-  DeckDetail,
-  DeckList,
-  NewDeck,
-  Quiz,
-};
+export { AddCard, DeckDetail, DeckList, NewDeck, Quiz };

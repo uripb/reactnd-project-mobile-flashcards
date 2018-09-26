@@ -5,7 +5,7 @@ export function addCard(deckId, card) {
     type: ADD_CARD,
     payload: {
       deckId,
-      card,
-    },
-  }
+      card
+    }
+  };
 }

@@ -3,28 +3,31 @@ import PropTypes from 'prop-types';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { orange, white } from '../utils/colors';
 
-function SecondaryBtn ({ onPress, disabled, text }) {
+function SecondaryBtn({ onPress, disabled, text }) {
   return (
-    <TouchableOpacity 
-      style={[styles.secondaryBtn, disabled ? styles.disabledBtn : styles.enabledBtn]}
+    <TouchableOpacity
+      style={[
+        styles.secondaryBtn,
+        disabled ? styles.disabledBtn : styles.enabledBtn
+      ]}
       onPress={onPress}
       disabled={disabled}
       activeOpacity={disabled ? 1 : 0.5}
     >
       <Text style={styles.secondaryBtnText}>{text}</Text>
     </TouchableOpacity>
-  )
-};
+  );
+}
 
 SecondaryBtn.defaultProps = {
   disabled: false,
-  text: 'Submit',
+  text: 'Submit'
 };
 
 SecondaryBtn.propTypes = {
   text: PropTypes.string,
   disabled: PropTypes.bool,
-  onPress: PropTypes.func.isRequired,
+  onPress: PropTypes.func.isRequired
 };
 
 const styles = StyleSheet.create({
@@ -38,19 +41,19 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     alignSelf: 'center',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   disabledBtn: {
-    opacity: 0.4,
+    opacity: 0.4
   },
   enabledBtn: {
-    opacity: 1,
+    opacity: 1
   },
   secondaryBtnText: {
     color: orange,
     fontSize: 22,
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 });
 
 export default SecondaryBtn;

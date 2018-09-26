@@ -11,30 +11,29 @@ import { addCardToDeck } from '../utils/api';
 const mapStateToProps = (state, { navigation }) => {
   const { deckId } = navigation.state.params;
   return {
-    deckId,
+    deckId
   };
 };
 
 const mapDispatchToProps = {
-  addCardFn: addCard, 
+  addCardFn: addCard
 };
 
 class AddCard extends PureComponent {
-
   state = {
     question: '',
-    answer: '',
+    answer: ''
   };
 
-  onChangeQuestion = (question) => {
+  onChangeQuestion = question => {
     this.setState({
-      question,
+      question
     });
   };
 
-  onChangeAnswer = (answer) => {
+  onChangeAnswer = answer => {
     this.setState({
-      answer,
+      answer
     });
   };
 
@@ -48,7 +47,7 @@ class AddCard extends PureComponent {
     const { question, answer } = this.state;
     const card = {
       question,
-      answer,
+      answer
     };
 
     addCardToDeck(deckId, card)
@@ -62,7 +61,7 @@ class AddCard extends PureComponent {
   reset = () => {
     this.setState({
       question: '',
-      answer: '',
+      answer: ''
     });
   };
 
@@ -91,10 +90,7 @@ class AddCard extends PureComponent {
           value={answer}
           onChangeText={this.onChangeAnswer}
         />
-        <SubmitBtn
-          onPress={this.submit}
-          disabled={!this.isValidForm()}
-        />
+        <SubmitBtn onPress={this.submit} disabled={!this.isValidForm()} />
       </View>
     );
   }
@@ -104,8 +100,8 @@ AddCard.propTypes = {
   deckId: PropTypes.string.isRequired,
   addCardFn: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
-    dispatch: PropTypes.func.isRequired,
-  }).isRequired,
+    dispatch: PropTypes.func.isRequired
+  }).isRequired
 };
 
 const styles = StyleSheet.create({
@@ -114,7 +110,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    paddingTop: 30,
+    paddingTop: 30
   },
   questionLabel: {
     fontSize: 20,
@@ -122,7 +118,7 @@ const styles = StyleSheet.create({
     width: '80%',
     textAlign: 'left',
     marginBottom: 6,
-    paddingLeft: 10,
+    paddingLeft: 10
   },
   inputText: {
     width: '80%',
@@ -130,8 +126,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingLeft: 10,
     paddingBottom: 5,
-    marginBottom: 20,
-  },
+    marginBottom: 20
+  }
 });
 
 export default connect(

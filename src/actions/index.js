@@ -1,5 +1,3 @@
 import { receiveDecks } from './decks';
 
-export {
-  receiveDecks,
-};
+export { receiveDecks };

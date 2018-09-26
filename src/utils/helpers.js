@@ -2,53 +2,50 @@ import { NOTIFICATION_KEY } from '../constants/App';
 import { AsyncStorage } from 'react-native';
 import { Notifications, Permissions } from 'expo';
 
-export function clearLocalNotification () {
-  return AsyncStorage.removeItem(NOTIFICATION_KEY)
-    .then(Notifications.cancelAllScheduledNotificationsAsync)
+export function clearLocalNotification() {
+  return AsyncStorage.removeItem(NOTIFICATION_KEY).then(
+    Notifications.cancelAllScheduledNotificationsAsync
+  );
 }
 
-function createNotification () {
+function createNotification() {
   return {
     title: 'Study today!',
     body: "👋 don't forget to study today!",
     ios: {
-      sound: true,
+      sound: true
     },
     android: {
       sound: true,
       priority: 'high',
       sticky: false,
-      vibrate: true,
+      vibrate: true
     }
-  }
+  };
 }
 
-export function setLocalNotification () {
+export function setLocalNotification() {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
-    .then((data) => {
+    .then(data => {
       if (data === null) {
-        Permissions.askAsync(Permissions.NOTIFICATIONS)
-          .then(({ status }) => {
-            if (status === 'granted') {
-              Notifications.cancelAllScheduledNotificationsAsync()
+        Permissions.askAsync(Permissions.NOTIFICATIONS).then(({ status }) => {
+          if (status === 'granted') {
+            Notifications.cancelAllScheduledNotificationsAsync();
 
-              let tomorrow = new Date()
-              tomorrow.setDate(tomorrow.getDate() + 1)
-              tomorrow.setHours(21)
-              tomorrow.setMinutes(0)
+            let tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(21);
+            tomorrow.setMinutes(0);
 
-              Notifications.scheduleLocalNotificationAsync(
-                createNotification(),
-                {
-                  time: tomorrow,
-                  repeat: 'day',
-                }
-              )
+            Notifications.scheduleLocalNotificationAsync(createNotification(), {
+              time: tomorrow,
+              repeat: 'day'
+            });
 
-              AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true))
-            }
-          });
+            AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
+          }
+        });
       }
-    })
+    });
 }
