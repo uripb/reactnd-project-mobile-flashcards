@@ -8,6 +8,7 @@ import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navig
 import reducer from './src/reducers';
 import { AddCard, DeckList, DeckDetail, NewDeck, Quiz } from './src/containers';
 import { orange, black } from './src/utils/colors';
+import { setLocalNotification } from './src/utils/helpers';
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
   return (
@@ -93,6 +94,10 @@ const MainNavigator = createStackNavigator({
 const store = createStore(reducer);
 
 export default class App extends Component {
+  componentDidMount() {
+    setLocalNotification();
+  }
+
   render() {
     return (
       <Provider store={store}>

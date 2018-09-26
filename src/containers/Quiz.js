@@ -6,6 +6,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import SubmitBtn from '../components/SubmitBtn';
 import SecondaryBtn from '../components/SecondaryBtn';
 import { grey, black, white, orange, red, green } from '../utils/colors';
+import { clearLocalNotification, setLocalNotification } from '../utils/helpers';
 
 const mapStateToProps = (decks, { navigation }) => {
   const { deckId } = navigation.state.params;
@@ -40,7 +41,7 @@ class Quiz extends PureComponent {
       current: prevState.current + 1,
       showAnswer: false,
       score: isCorrect ? prevState.score + 1 : prevState.score,
-    }));
+    }), () => this.validateNotification());
   };
 
   handleBack = () => {
@@ -54,6 +55,16 @@ class Quiz extends PureComponent {
       showAnswer: false,
       score: 0,
     });
+  };
+
+  validateNotification = () => {
+    const { current } = this.state;
+    const { deck } = this.props;
+
+    if (current >= deck.questions.length) {
+      clearLocalNotification()
+        .then(setLocalNotification);
+    }
   };
 
   renderQuestion = () => {
