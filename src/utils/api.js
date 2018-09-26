@@ -24,9 +24,25 @@ export const saveDeckTitle = async(deck) => {
     console.log("error save deck title");
     return Promise.reject();
   }
-  return 
 };
 
-export const addCardToDeck = () => {
+export const addCardToDeck = async(deckId, card) => {
+  try {
+    return getDecks()
+      .then((decks) => {
+        const deckData = decks[deckId];
+        deckData.questions.push(card);
 
+        decks = {
+          ...decks,
+          [deckId]: deckData,
+        };
+
+        return AsyncStorage.setItem(MOBILE_FLASHCARDS_STORAGE_KEY, JSON.stringify(decks));
+      });
+  } catch(error) {
+    // Error add card to deck
+    console.log("error add card to deck");
+    return Promise.reject();
+  }
 };

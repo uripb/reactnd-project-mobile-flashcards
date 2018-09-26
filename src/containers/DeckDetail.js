@@ -2,30 +2,19 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StyleSheet, View, Text } from 'react-native';
-import { AppLoading } from 'expo';
 import SecondaryBtn from '../components/SecondaryBtn';
 import SubmitBtn from '../components/SubmitBtn';
-import { getDeck } from '../utils/api';
 import { grey, black } from '../utils/colors';
 
-const mapStateToProps = (state, { navigation }) => {
+const mapStateToProps = (decks, { navigation }) => {
   const { deckId } = navigation.state.params;
   return {
     deckId,
+    deck: decks[deckId],
   };
 };
 
-/*const mapDispatchToProps = (dispatch, { navigation }) => {
-  return {
-    goBack: () => navigation.goBack(),
-  };
-};*/
-
 class DeckDetail extends PureComponent {
-  state = {
-    ready: false,
-    deck: null,
-  };
 
   static navigationOptions = ({ navigation }) => {
     const { deckId } = navigation.state.params;
@@ -34,35 +23,22 @@ class DeckDetail extends PureComponent {
     }
   }
 
-  componentDidMount() {
-    const { deckId } = this.props;
-    getDeck(deckId)
-      .then((deck) => {
-        this.setState({
-          ready: true,
-          deck,
-        });
-      });
-  };
-
   handleStartQuiz = () => {
 
   };
 
   handleAddCard = () => {
-
+    const { navigation, deckId } = this.props;
+    navigation.navigate(
+      'AddCard',
+      {
+        deckId,
+      }
+    );
   };
 
-  renderLoading = () => (
-    <AppLoading />
-  );
-
   render() {
-    const { ready, deck } = this.state;
-
-    if (ready === false) {
-      return this.renderLoading();
-    }
+    const { deck } = this.props;
 
     return (
       <View style={styles.container}>

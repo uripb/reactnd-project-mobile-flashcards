@@ -6,7 +6,7 @@ import { View, StatusBar } from 'react-native';
 import { Constants } from 'expo';
 import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
 import reducer from './src/reducers';
-import { DeckList, DeckDetail, NewDeck } from './src/containers';
+import { AddCard, DeckList, DeckDetail, NewDeck } from './src/containers';
 import { orange, black } from './src/utils/colors';
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
@@ -69,6 +69,16 @@ const MainNavigator = createStackNavigator({
       }
     }
   },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      title: 'Add card',
+      headerTintColor: orange,
+      headerStyle: {
+        backgroundColor: black,
+      }
+    }
+  }
 });
 
 const store = createStore(reducer);

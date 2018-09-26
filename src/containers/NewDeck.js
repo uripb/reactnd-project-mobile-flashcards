@@ -17,7 +17,7 @@ class NewDeck extends Component {
 
   state = {
     text: '',
-  }
+  };
 
   submit = () => {
     const { addDeckFn, navigation } = this.props;
