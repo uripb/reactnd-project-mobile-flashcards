@@ -20,7 +20,7 @@ class DeckDetail extends PureComponent {
     const { deckId } = navigation.state.params;
     return {
       title: deckId
-    }
+    };
   }
 
   handleStartQuiz = () => {
@@ -54,7 +54,11 @@ class DeckDetail extends PureComponent {
           <SecondaryBtn onPress={this.handleAddCard} text="Add card" />
         </View>
         <View style={styles.btn}>
-          <SubmitBtn onPress={this.handleStartQuiz} text="Start Quiz" />
+          <SubmitBtn
+            onPress={this.handleStartQuiz}
+            text="Start Quiz"
+            disabled={deck.questions.length === 0}
+          />
         </View>
       </View>
     );

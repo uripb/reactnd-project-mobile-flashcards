@@ -20,7 +20,7 @@ class Quiz extends PureComponent {
     const { deckId } = navigation.state.params;
     return {
       title: `Quiz: ${deckId}`,
-    }
+    };
   }
 
   state = {
@@ -106,11 +106,13 @@ class Quiz extends PureComponent {
         <Text style={[styles.scoreResult, {
           color: result >= 50 ? green : red
         }]}>{`${result}%`}</Text>
-        <View style={styles.btn}>
-          <SecondaryBtn onPress={this.handleBack} text="Back to Deck" />
-        </View>
-        <View style={styles.btn}>
-          <SubmitBtn onPress={this.handleRestartQuiz} text="Restart Quiz" />
+        <View style={styles.btnsContainer}>
+          <View style={styles.btn}>
+            <SecondaryBtn onPress={this.handleBack} text="Back to Deck" />
+          </View>
+          <View style={styles.btn}>
+            <SubmitBtn onPress={this.handleRestartQuiz} text="Restart Quiz" />
+          </View>
         </View>
       </View>
     );
