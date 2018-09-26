@@ -5,6 +5,7 @@ Mobile Flashcards project is a mobile application that allows users to study col
 ## Platform tested
 
 I've tested Mobile Flashcards application in Android (8.0.0) device using Expo app.
+
 I haven't tested in iOS device.
 
 ## Available Scripts
