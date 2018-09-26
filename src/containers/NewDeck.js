@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { orange, grey, white } from '../utils/colors';
+import { addDeck } from '../actions/decks';
+import { saveDeckTitle } from '../utils/api';
 
 function SubmitBtn ({ onPress, disabled }) {
   return (
@@ -15,6 +19,19 @@ function SubmitBtn ({ onPress, disabled }) {
   )
 };
 
+SubmitBtn.defaultProps = {
+  disabled: false,
+};
+
+SubmitBtn.propTypes = {
+  disabled: PropTypes.bool,
+  onPress: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = {
+  addDeckFn: addDeck, 
+};
+
 class NewDeck extends Component {
 
   state = {
@@ -22,12 +39,27 @@ class NewDeck extends Component {
   }
 
   submit = () => {
-    console.log(this.state.text);
+    const { addDeckFn } = this.props;
+    const { text } = this.state;
+    const deck = {
+      title: text,
+      questions: [],
+    };
+
+    saveDeckTitle(deck)
+      .then(addDeckFn)
+      .then(this.reset);
   };
 
   onChangeText = (text) => {
     this.setState({
       text,
+    });
+  }
+
+  reset = () => {
+    this.setState({
+      text: '',
     });
   }
 
@@ -54,6 +86,10 @@ class NewDeck extends Component {
     );
   }
 }
+
+NewDeck.propTypes = {
+  addDeckFn: PropTypes.func.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -102,4 +138,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewDeck;
+export default connect(
+  null,
+  mapDispatchToProps
+)(NewDeck);

@@ -1,8 +1,15 @@
-import { RECEIVE_DECKS } from '../constants/ActionTypes';
+import { RECEIVE_DECKS, ADD_DECK } from '../constants/ActionTypes';
 
-export function receiveDecks (decks) {
+export function receiveDecks(decks) {
   return {
     type: RECEIVE_DECKS,
     decks,
+  }
+}
+
+export function addDeck(deck) {
+  return {
+    type: ADD_DECK,
+    deck,
   }
 }

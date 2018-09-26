@@ -2,7 +2,7 @@ import React, { PureComponent, Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { StyleSheet, View, FlatList, TouchableOpacity, Text } from 'react-native';
-import { receiveDecks } from '../actions';
+import { receiveDecks } from '../actions/decks';
 import { getDecks } from '../utils/api';
 
 const mapStateToProps = (decks) => ({
@@ -84,6 +84,14 @@ class DeckList extends Component {
   }
 }
 
+DeckList.propTypes = {
+  decks: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    totalCards: PropTypes.number.isRequired,
+  })).isRequired,
+  getDecksFn: PropTypes.func.isRequired,
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -114,14 +122,6 @@ const styles = StyleSheet.create({
     color: "#5f656b",
   }
 });
-
-DeckList.propTypes = {
-  decks: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    totalCards: PropTypes.number.isRequired,
-  })).isRequired,
-  getDecksFn: PropTypes.func.isRequired,
-};
 
 export default connect(
   mapStateToProps,
