@@ -104,7 +104,7 @@ AddCard.propTypes = {
   deckId: PropTypes.string.isRequired,
   addCardFn: PropTypes.func.isRequired,
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
   }).isRequired,
 };
 

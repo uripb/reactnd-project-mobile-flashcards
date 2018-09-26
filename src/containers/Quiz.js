@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import SubmitBtn from '../components/SubmitBtn';
+import SecondaryBtn from '../components/SecondaryBtn';
 import { grey, black, white, orange, red, green } from '../utils/colors';
 
 const mapStateToProps = (decks, { navigation }) => {
@@ -39,6 +41,19 @@ class Quiz extends PureComponent {
       showAnswer: false,
       score: isCorrect ? prevState.score + 1 : prevState.score,
     }));
+  };
+
+  handleBack = () => {
+    const { navigation } = this.props;
+    navigation.dispatch(NavigationActions.back());
+  };
+
+  handleRestartQuiz = () => {
+    this.setState({
+      current: 0,
+      showAnswer: false,
+      score: 0,
+    });
   };
 
   renderQuestion = () => {
@@ -81,7 +96,24 @@ class Quiz extends PureComponent {
   };
 
   renderScore = () => {
-    return(<Text>final</Text>);
+    const { deck } = this.props;
+    const { score } = this.state;
+    const result = (score * 100 / deck.questions.length).toFixed(1);
+
+    return(
+      <View style={styles.scoreContainer}>
+        <Text style={styles.scoreText}>Score</Text>
+        <Text style={[styles.scoreResult, {
+          color: result >= 50 ? green : red
+        }]}>{`${result}%`}</Text>
+        <View style={styles.btn}>
+          <SecondaryBtn onPress={this.handleBack} text="Back to Deck" />
+        </View>
+        <View style={styles.btn}>
+          <SubmitBtn onPress={this.handleRestartQuiz} text="Restart Quiz" />
+        </View>
+      </View>
+    );
   };
 
   render() {
@@ -109,7 +141,7 @@ Quiz.propTypes = {
     })).isRequired,
   }).isRequired,
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
   }).isRequired,
 };
 
@@ -166,6 +198,19 @@ const styles = StyleSheet.create({
   btn: {
     marginTop: 5,
     marginBottom: 5,
+  },
+  scoreContainer: {
+    width: "100%",
+    marginTop: 40,
+  },
+  scoreText: {
+    fontSize: 60,
+    color: black,
+    textAlign: 'center',
+  },
+  scoreResult: {
+    fontSize: 80,
+    textAlign: 'center',
   },
 });
 
