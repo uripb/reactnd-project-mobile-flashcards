@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { grey } from '../utils/colors';
 
 class DeckRow extends PureComponent {
 
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
   },
   cards: {
     fontSize: 17,
-    color: "#5f656b",
+    color: grey,
   }
 });
 

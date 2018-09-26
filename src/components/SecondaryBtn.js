@@ -3,33 +3,35 @@ import PropTypes from 'prop-types';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { orange, white } from '../utils/colors';
 
-function SubmitBtn ({ onPress, disabled, text }) {
+function SecondaryBtn ({ onPress, disabled, text }) {
   return (
     <TouchableOpacity 
-      style={[styles.submitBtn, disabled ? styles.disabledBtn : styles.enabledBtn]}
+      style={[styles.secondaryBtn, disabled ? styles.disabledBtn : styles.enabledBtn]}
       onPress={onPress}
       disabled={disabled}
       activeOpacity={disabled ? 1 : 0.5}
     >
-      <Text style={styles.submitBtnText}>{text}</Text>
+      <Text style={styles.secondaryBtnText}>{text}</Text>
     </TouchableOpacity>
   )
 };
 
-SubmitBtn.defaultProps = {
+SecondaryBtn.defaultProps = {
   disabled: false,
   text: 'Submit',
 };
 
-SubmitBtn.propTypes = {
+SecondaryBtn.propTypes = {
   text: PropTypes.string,
   disabled: PropTypes.bool,
   onPress: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
-  submitBtn: {
-    backgroundColor: orange,
+  secondaryBtn: {
+    backgroundColor: white,
+    borderWidth: 1,
+    borderColor: orange,
     padding: 10,
     width: 180,
     height: 45,
@@ -44,11 +46,11 @@ const styles = StyleSheet.create({
   enabledBtn: {
     opacity: 1,
   },
-  submitBtnText: {
-    color: white,
+  secondaryBtnText: {
+    color: orange,
     fontSize: 22,
     textAlign: 'center',
   },
 });
 
-export default SubmitBtn;
+export default SecondaryBtn;
