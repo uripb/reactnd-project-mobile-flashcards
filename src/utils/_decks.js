@@ -2,7 +2,7 @@ import { AsyncStorage } from 'react-native';
 import { MOBILE_FLASHCARDS_STORAGE_KEY } from '../constants/App';
 
 function setDummyData () {
-  const initData = {
+  const dummyData = {
     React: {
       title: 'React',
       questions: [
