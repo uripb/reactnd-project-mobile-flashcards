@@ -1,7 +1,9 @@
-import React, { PureComponent, Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { StyleSheet, View, FlatList, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
+import { AppLoading } from 'expo';
+import DeckRow from '../components/DeckRow';
 import { receiveDecks } from '../actions/decks';
 import { getDecks } from '../utils/api';
 
@@ -16,51 +18,38 @@ const mapDispatchToProps = {
   getDecksFn: receiveDecks, 
 };
 
-class DeckRow extends PureComponent {
-
-  handleClickRow = () => {
-    // navigate to row detail
-  }
-
-  render() {
-    const { title, num } = this.props;
-    return (
-      <TouchableOpacity style={styles.row} onPress={this.handleClickRow}>
-        <View>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.cards}>{num} cards</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  }
-}
-
-DeckRow.defaultProps = {
-  title: '-',
-  num: 0,
-};
-
-DeckRow.propTypes = {
-  title: PropTypes.string,
-  num: PropTypes.number, 
-};
-
 class DeckList extends Component {
   state = {
     ready: false,
-  }
+  };
 
   componentDidMount() {
     const { getDecksFn } = this.props;
     getDecks()
       .then(getDecksFn)
-      .then(() => this.setState(() => ({ready: true})))
-  }
+      .then(() => this.setState(() => ({ready: true})));
+  };
+
+  handleClickRow = (id) => {
+    const { navigation } = this.props;
+    navigation.navigate(
+      'DeckDetail',
+      { deckId: id }
+    );
+  };
 
   keyExtractor = (item) => item.title;
 
+  renderLoading = () => (
+    <AppLoading />
+  );
+
   renderItem = ({item}) => (
-    <DeckRow title={item.title} num={item.totalCards} />
+    <DeckRow 
+      title={item.title}
+      num={item.totalCards}
+      onClick={this.handleClickRow}
+    />
   );
 
   renderSeparator = () => (
@@ -71,6 +60,12 @@ class DeckList extends Component {
 
   render() {
     const { decks } = this.props;
+    const { ready } = this.state;
+
+    if (ready === false) {
+      return this.renderLoading();
+    }
+
     return (
       <View style={styles.container}>
         <FlatList
@@ -90,6 +85,9 @@ DeckList.propTypes = {
     totalCards: PropTypes.number.isRequired,
   })).isRequired,
   getDecksFn: PropTypes.func.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -98,15 +96,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'stretch',
   },
-  row: {
-    flex: 1,
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 20,
-    paddingRight: 20,
-    width: "100%",
-    backgroundColor: "white"
-  },
   separator: {
     height: 1,
     width: "92%",
@@ -114,13 +103,6 @@ const styles = StyleSheet.create({
     marginLeft: "4%",
     marginRight: "4%",
   },
-  title: {
-    fontSize: 20,
-  },
-  cards: {
-    fontSize: 17,
-    color: "#5f656b",
-  }
 });
 
 export default connect(

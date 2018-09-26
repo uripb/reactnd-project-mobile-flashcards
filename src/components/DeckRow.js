@@ -1,20 +1,16 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 class DeckRow extends PureComponent {
 
-  handleClickRow = () => {
-    // navigate to row detail
-  }
-
   render() {
-    const { title, num } = this.props;
+    const { title, num, onClick } = this.props;
     return (
-      <TouchableOpacity onPress={this.handleClickRow}>
+      <TouchableOpacity style={styles.row} onPress={() => onClick(title)}>
         <View>
-          <Text>{title}</Text>
-          <Text>{num} cards</Text>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.cards}>{num} cards</Text>
         </View>
       </TouchableOpacity>
     );
@@ -24,11 +20,32 @@ class DeckRow extends PureComponent {
 DeckRow.defaultProps = {
   title: '-',
   num: 0,
+  onClick: () => null,
 };
 
 DeckRow.propTypes = {
   title: PropTypes.string,
   num: PropTypes.number, 
+  onClick: PropTypes.func,
 };
+
+const styles = StyleSheet.create({
+  row: {
+    flex: 1,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 20,
+    paddingRight: 20,
+    width: "100%",
+    backgroundColor: "white"
+  },
+  title: {
+    fontSize: 20,
+  },
+  cards: {
+    fontSize: 17,
+    color: "#5f656b",
+  }
+});
 
 export default DeckRow;

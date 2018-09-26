@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import { View, StatusBar } from 'react-native';
 import { Constants } from 'expo';
 import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation';
 import reducer from './src/reducers';
-import DeckList from './src/containers/DeckList';
-import NewDeck from './src/containers/NewDeck';
+import { DeckList, DeckDetail, NewDeck } from './src/containers';
 import { orange, black } from './src/utils/colors';
 
 function UdaciStatusBar ({backgroundColor, ...props}) {
@@ -62,9 +60,17 @@ const MainNavigator = createStackNavigator({
       header: null
     }
   },
+  DeckDetail: {
+    screen: DeckDetail,
+    navigationOptions: {
+      headerTintColor: orange,
+      headerStyle: {
+        backgroundColor: black,
+      }
+    }
+  },
 });
 
-const middleware = applyMiddleware(thunk);
 const store = createStore(reducer);
 
 export default class App extends Component {

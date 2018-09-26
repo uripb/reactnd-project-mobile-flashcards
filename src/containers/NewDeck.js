@@ -1,32 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { orange, grey, white } from '../utils/colors';
+import { StyleSheet, View, Text, TextInput } from 'react-native';
+import SubmitBtn from '../components/SubmitBtn';
+import { orange, grey } from '../utils/colors';
 import { addDeck } from '../actions/decks';
 import { saveDeckTitle } from '../utils/api';
 
-function SubmitBtn ({ onPress, disabled }) {
-  return (
-    <TouchableOpacity 
-      style={[styles.submitBtn, disabled ? styles.disabledBtn : styles.enabledBtn]}
-      onPress={onPress}
-      disabled={disabled}
-      activeOpacity={disabled ? 1 : 0.5}
-    >
-      <Text style={styles.submitBtnText}>Submit</Text>
-    </TouchableOpacity>
-  )
-};
 
-SubmitBtn.defaultProps = {
-  disabled: false,
-};
-
-SubmitBtn.propTypes = {
-  disabled: PropTypes.bool,
-  onPress: PropTypes.func.isRequired,
-};
 
 const mapDispatchToProps = {
   addDeckFn: addDeck, 
@@ -113,28 +94,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingBottom: 5,
     marginBottom: 30,
-  },
-  submitBtn: {
-    backgroundColor: orange,
-    padding: 10,
-    paddingLeft: 50,
-    paddingRight: 50,
-    height: 45,
-    borderRadius: 4,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  disabledBtn: {
-    opacity: 0.4,
-  },
-  enabledBtn: {
-    opacity: 1,
-  },
-  submitBtnText: {
-    color: white,
-    fontSize: 22,
-    textAlign: 'center',
   },
 });
 
