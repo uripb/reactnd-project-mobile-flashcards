@@ -58,6 +58,13 @@ class DeckDetail extends PureComponent {
 
 DeckDetail.propTypes = {
   deckId: PropTypes.string.isRequired,
+  deck: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    questions: PropTypes.arrayOf(PropTypes.shape({
+      question: PropTypes.string,
+      anwser: PropTypes.string,
+    })).isRequired,
+  }).isRequired,
 };
 
 const styles = StyleSheet.create({

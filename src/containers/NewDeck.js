@@ -68,6 +68,7 @@ class NewDeck extends Component {
         <SubmitBtn
           onPress={this.submit}
           disabled={text.length === 0}
+          text="Create Deck"
         />
       </View>
     );
