@@ -77,6 +77,9 @@ class NewDeck extends Component {
 
 NewDeck.propTypes = {
   addDeckFn: PropTypes.func.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const styles = StyleSheet.create({

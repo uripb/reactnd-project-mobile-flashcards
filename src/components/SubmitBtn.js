@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { orange, white } from '../utils/colors';
 
-function SubmitBtn ({ onPress, disabled, text }) {
+function SubmitBtn ({ onPress, disabled, text, bgColor, textColor }) {
   return (
     <TouchableOpacity 
-      style={[styles.submitBtn, disabled ? styles.disabledBtn : styles.enabledBtn]}
+      style={[styles.submitBtn, disabled ? styles.disabledBtn : styles.enabledBtn, {
+        backgroundColor: bgColor,
+      }]}
       onPress={onPress}
       disabled={disabled}
       activeOpacity={disabled ? 1 : 0.5}
     >
-      <Text style={styles.submitBtnText}>{text}</Text>
+      <Text style={[styles.submitBtnText, {
+        color: textColor,
+      }]}>{text}</Text>
     </TouchableOpacity>
   )
 };
@@ -19,12 +23,16 @@ function SubmitBtn ({ onPress, disabled, text }) {
 SubmitBtn.defaultProps = {
   disabled: false,
   text: 'Submit',
+  bgColor: orange,
+  textColor: white, 
 };
 
 SubmitBtn.propTypes = {
   text: PropTypes.string,
   disabled: PropTypes.bool,
   onPress: PropTypes.func.isRequired,
+  bgColor: PropTypes.string,
+  textColor: PropTypes.string,
 };
 
 const styles = StyleSheet.create({

@@ -24,7 +24,13 @@ class DeckDetail extends PureComponent {
   }
 
   handleStartQuiz = () => {
-
+    const { navigation, deckId } = this.props;
+    navigation.navigate(
+      'Quiz',
+      {
+        deckId,
+      }
+    );
   };
 
   handleAddCard = () => {
@@ -65,6 +71,9 @@ DeckDetail.propTypes = {
       anwser: PropTypes.string,
     })).isRequired,
   }).isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -96,6 +105,5 @@ const styles = StyleSheet.create({
 });
 
 export default connect(
-  mapStateToProps,
-  null,
+  mapStateToProps
 )(DeckDetail);

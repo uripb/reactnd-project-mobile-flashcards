@@ -103,6 +103,9 @@ class AddCard extends PureComponent {
 AddCard.propTypes = {
   deckId: PropTypes.string.isRequired,
   addCardFn: PropTypes.func.isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const styles = StyleSheet.create({
