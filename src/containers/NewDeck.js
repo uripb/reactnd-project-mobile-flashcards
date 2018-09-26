@@ -20,7 +20,7 @@ class NewDeck extends Component {
   }
 
   submit = () => {
-    const { addDeckFn } = this.props;
+    const { addDeckFn, navigation } = this.props;
     const { text } = this.state;
     const deck = {
       title: text,
@@ -29,7 +29,13 @@ class NewDeck extends Component {
 
     saveDeckTitle(deck)
       .then(addDeckFn)
-      .then(this.reset);
+      .then(this.reset)
+      .then(() => {
+        navigation.navigate(
+          'DeckDetail',
+          { deckId: deck.title }
+        );
+      });
   };
 
   onChangeText = (text) => {
